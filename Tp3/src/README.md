@@ -31,7 +31,7 @@ Screenshot berikut menunjukkan hasil program ketika dijalankan melalui Terminal,
 
 Simpan screenshot terminal di folder `Screenshot` dengan nama `hasil-tp3.png`.
 
-![Screenshot Output Character Manager](Tp3/Screenshot/output_tp3.png)
+![![alt text](../Screenshot/output_tp3.png)]
 
 ## Struktur Folder Project
 
