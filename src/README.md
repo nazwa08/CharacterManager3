@@ -204,7 +204,7 @@ Screenshot berikut menunjukkan tampilan MainWindow setelah penambahan karakter T
 
 Simpan screenshot dengan nama `tp8_sesudah.png`.
 
-![alt text](../Screenshot/tp8_sesudah.png)
+![alt text](tp8_sesudah.png)
 
 ## Analisis Aliran Data dan MVC
 
