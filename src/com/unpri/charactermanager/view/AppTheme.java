@@ -9,66 +9,62 @@ import javax.swing.border.Border;
 
 public class AppTheme {
 
-    // WARNA UTAMA
-    public static final Color BACKGROUND = new Color(24, 27, 38);
-    public static final Color PANEL_BACKGROUND = new Color(35, 40, 54);
-    public static final Color TEXT_COLOR = new Color(240, 240, 245);
-    public static final Color GOLD = new Color(255, 196, 55);
-    public static final Color BUTTON_COLOR = new Color(65, 105, 225);
+    // Warna aplikasi
+    public static final Color BACKGROUND = new Color(245, 247, 250);
+    public static final Color PANEL = Color.WHITE;
+    public static final Color TEXT = new Color(35, 42, 52);
+    public static final Color MUTED = new Color(110, 120, 135);
+    public static final Color ACCENT = new Color(45, 105, 180);
+    public static final Color BORDER_COLOR = new Color(220, 225, 232);
 
-    // WARNA BERDASARKAN ROLE
-    public static final Color WARRIOR_COLOR = new Color(150, 55, 65);
-    public static final Color MAGE_COLOR = new Color(55, 90, 165);
-    public static final Color ARCHER_COLOR = new Color(45, 125, 85);
-    public static final Color ASSASSIN_COLOR = new Color(105, 70, 145);
+    // Font aplikasi
+    public static final Font TITLE_FONT =
+            new Font("SansSerif", Font.BOLD, 23);
 
-    // FONT
-    public static final Font FONT_TITLE =
-            new Font(Font.SANS_SERIF, Font.BOLD, 24);
+    public static final Font SUBTITLE_FONT =
+            new Font("SansSerif", Font.PLAIN, 13);
 
-    public static final Font FONT_SUBTITLE =
-            new Font(Font.SANS_SERIF, Font.BOLD, 17);
+    public static final Font CARD_TITLE_FONT =
+            new Font("SansSerif", Font.BOLD, 16);
 
-    public static final Font FONT_BODY =
-            new Font(Font.SANS_SERIF, Font.PLAIN, 14);
+    public static final Font BODY_FONT =
+            new Font("SansSerif", Font.PLAIN, 13);
 
-    // BORDER
-    public static final Border CARD_BORDER =
+    public static final Font SMALL_FONT =
+            new Font("SansSerif", Font.PLAIN, 11);
+
+    // Border aplikasi
+    public static final Border PANEL_BORDER =
             BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(
-                            new Color(85, 90, 110), 1),
+                    BorderFactory.createLineBorder(BORDER_COLOR),
                     BorderFactory.createEmptyBorder(12, 12, 12, 12)
             );
 
-    // BATAS LEVEL TINGGI
-    public static final int HIGH_LEVEL_THRESHOLD = 5;
+    private AppTheme() {
+    }
 
-    // METHOD WARNA ROLE
+    // Warna berdasarkan tipe karakter
     public static Color colorFor(CharacterType type) {
 
         if (type == null) {
-            return PANEL_BACKGROUND;
+            return MUTED;
         }
 
         switch (type) {
             case WARRIOR:
-                return WARRIOR_COLOR;
+                return new Color(220, 85, 85);
 
             case MAGE:
-                return MAGE_COLOR;
+                return new Color(125, 90, 205);
 
             case ARCHER:
-                return ARCHER_COLOR;
+                return new Color(55, 155, 100);
 
             case ASSASSIN:
-                return ASSASSIN_COLOR;
+                return new Color(65, 75, 95);
 
             default:
-                return PANEL_BACKGROUND;
+                return MUTED;
         }
-    }
-
-    private AppTheme() {
-        // Mencegah pembuatan objek AppTheme
     }
 }

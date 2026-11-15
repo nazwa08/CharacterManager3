@@ -446,3 +446,123 @@ Dokumen analisis berisi pembahasan mengenai:
 Melalui Character Manager Sprint #4, saya mempelajari cara mengatur tampilan aplikasi menggunakan AppTheme, menerapkan properti komponen Swing, serta memahami pemisahan tanggung jawab dalam arsitektur MVC.
 
 Saya juga berhasil mempelajari penggunaan warna berdasarkan role karakter, highlight untuk level tinggi, tooltip, hand cursor, dan pack(). Dengan penerapan tersebut, aplikasi Character Manager menjadi lebih menarik, terstruktur, dan mudah dikembangkan.
+
+----------------------------------------------------------------------------------------------------
+
+
+# Character Manager — TP12 (Sprint 5)
+
+## Layout, UI Responsif & Analisis MVC
+
+### A. Deskripsi
+
+TP12 merupakan pengembangan Character Manager Sprint 5.
+Pada tahap ini aplikasi dikembangkan menggunakan Java Swing
+dengan penerapan Layout Manager untuk menghasilkan tampilan
+yang lebih terstruktur dan responsif.
+
+### B. Implementasi Layout
+
+MainWindow menggunakan BorderLayout dengan empat wilayah:
+
+- NORTH: Header dan panel statistik.
+- CENTER: Daftar kartu karakter menggunakan JScrollPane.
+- EAST: Legenda role karakter menggunakan BoxLayout.
+- SOUTH: Status bar yang menampilkan informasi dan versi v0.5.
+
+Panel daftar karakter menggunakan GridLayout dengan dua kolom.
+Panel kartu ditempatkan pada NORTH panel pembungkus sebelum
+panel tersebut dimasukkan ke JScrollPane.
+
+### C. Wireframe
+
+```text
++-------------------------------------------------------+
+|                  CHARACTER MANAGER                    |
+|                                                       |
+|  Total Karakter   Role       Layout       Sprint       |
++------------------------------------------+------------+
+|                                          |            |
+|  +---------------+  +---------------+    | LEGENDA    |
+|  | Arthur        |  | Merlin        |    |            |
+|  | WARRIOR       |  | MAGE          |    | WARRIOR    |
+|  | Level 10      |  | Level 15       |    | MAGE       |
+|  +---------------+  +---------------+    | ARCHER     |
+|                                          | ASSASSIN   |
+|  +---------------+  +---------------+    |            |
+|  | Robin         |  | Shadow        |    |            |
+|  | ARCHER        |  | ASSASSIN      |    |            |
+|  | Level 7       |  | Level 9       |    |            |
+|  +---------------+  +---------------+    |            |
+|                                          |            |
++------------------------------------------+------------+
+| Status: Menampilkan karakter             v0.5         |
++-------------------------------------------------------+
+```
+
+### D. Screenshot Pengujian
+
+#### 1. Tampilan Ukuran Awal
+
+![alt text](<../Screenshot/output_pertama tp12.png>)
+
+#### 2. Tampilan Jendela Dilebarkan
+
+![alt text](<../Screenshot/output_kedua tp12.png>)
+
+#### 3. Tampilan Jendela Dikecilkan
+
+![alt text](<../Screenshot/output_ketiga tp12.png>)
+
+### E. Tabel Pengamatan Resize
+
+| Kondisi | Prediksi | Hasil Pengujian |
+|---|---|---|
+| Ukuran awal | Kartu dan legenda terlihat | Sesuai |
+| Jendela dilebarkan | Area CENTER menyesuaikan | Sesuai |
+| Jendela dikecilkan | Scrollbar vertikal muncul | Sesuai |
+| Panel legenda | Tetap berada di EAST | Sesuai |
+| Status bar | Tetap berada di SOUTH | Sesuai |
+
+Catatan: hasil tabel harus disesuaikan dengan pengujian aktual.
+
+### F. Struktur Panel Bersarang
+
+Aplikasi menggunakan JFrame sebagai container utama dengan
+BorderLayout. Header memiliki panel teks dan panel statistik
+yang disusun secara bersarang. Area CENTER menggunakan
+JScrollPane yang membungkus panel GridLayout berisi kartu
+karakter. Area EAST menggunakan BoxLayout untuk menyusun
+legenda secara vertikal, sedangkan area SOUTH menggunakan
+BorderLayout untuk memisahkan status dan versi aplikasi.
+
+### G. Alasan Pemilihan Layout
+
+GridLayout dipilih untuk menyusun kartu karakter karena
+menghasilkan dua kolom dengan ukuran sel yang seragam.
+BoxLayout dipilih untuk legenda karena setiap role perlu
+disusun secara vertikal. Untuk panel statistik digunakan
+GridLayout 2x2 agar informasi tersusun seimbang.
+
+FlowLayout tidak dipilih untuk daftar karakter karena
+pengaturan baris dan kolom kurang terkontrol. GridLayout
+lebih sesuai dengan kebutuhan tampilan kartu yang konsisten.
+
+### H. Pemisahan MVC
+
+Package model tetap dipertahankan untuk mengelola data dan
+logika karakter. Package view bertanggung jawab terhadap
+tampilan dan pengaturan layout. Main.java menjadi titik
+masuk aplikasi dan menginisialisasi data sebelum membuka
+MainWindow.
+
+### I. Link Google Docs
+
+[https://1drv.ms/w/c/4c356e610a8583e8/IQADZUHTn583Q7zxov-oOrd_AXOQTTPDFoFwnFyCMxOjN0E?e=rL482K]
+
+### J. Identitas Mahasiswa
+
+- Nama: Nazwa Haqqi Nasution
+- NIM: 253303621233
+- Kelas: Sistem Informasi Pagi A
+- Mata Kuliah: Java Visual SIH-6406

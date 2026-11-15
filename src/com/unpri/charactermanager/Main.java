@@ -16,34 +16,45 @@ public class Main {
 
             CharacterManager manager = new CharacterManager();
 
-            // 6 KARAKTER DENGAN ROLE DAN LEVEL BERBEDA
+            // WARRIOR
             manager.addCharacter(
-                    new Character("Arthur", CharacterType.WARRIOR, 1)
+                    new Character("Arthur", CharacterType.WARRIOR, 10)
             );
 
             manager.addCharacter(
-                    new Character("Merlin", CharacterType.MAGE, 3)
+                    new Character("Leon", CharacterType.WARRIOR, 5)
+            );
+
+            // MAGE
+            manager.addCharacter(
+                    new Character("Merlin", CharacterType.MAGE, 15)
             );
 
             manager.addCharacter(
-                    new Character("Robin", CharacterType.ARCHER, 2)
+                    new Character("Luna", CharacterType.MAGE, 8)
+            );
+
+            // ARCHER
+            manager.addCharacter(
+                    new Character("Robin", CharacterType.ARCHER, 7)
             );
 
             manager.addCharacter(
-                    new Character("Luna", CharacterType.MAGE, 4)
+                    new Character("Diana", CharacterType.ARCHER, 12)
+            );
+
+            // ASSASSIN
+            manager.addCharacter(
+                    new Character("Shadow", CharacterType.ASSASSIN, 9)
             );
 
             manager.addCharacter(
-                    new Character("Ragnar", CharacterType.WARRIOR, 5)
+                    new Character("Akira", CharacterType.ASSASSIN, 6)
             );
 
-            manager.addCharacter(
-                    new Character("Shadow", CharacterType.ASSASSIN, 6)
-            );
-
-            // MEMBUKA GUI
             MainWindow window = new MainWindow(manager);
             window.setVisible(true);
+
         });
     }
 }
