@@ -267,3 +267,182 @@ Melalui tugas TP8 ini, saya mempelajari cara mengembangkan aplikasi Java dari pr
 Selain itu, saya mempelajari konsep event-driven programming, penggunaan SwingUtilities.invokeLater(), serta hubungan antara Main, CharacterManager, dan MainWindow dalam penerapan prinsip MVC.
 
 Dengan adanya tampilan data dinamis dan statistik rata-rata level, aplikasi Character Manager menjadi lebih interaktif dan mudah digunakan.
+
+-----------------------------------------------------------------------------------------------
+
+# Character Manager — TP10 (Java Visual SIH-6406)
+
+## Character Manager Sprint #4
+### Theming, Properti Komponen & Analisis MVC
+
+**Nama:** Nazwa Haqqi Nasution  
+**NIM:** 253303621233  
+**Mata Kuliah:** Java Visual  
+
+---
+
+## 1. Pengertian
+
+Character Manager merupakan aplikasi desktop berbasis Java Swing yang digunakan untuk mengelola data karakter. Pada TP10 atau Sprint #4, aplikasi dikembangkan dengan menambahkan pengaturan tema menggunakan AppTheme, pengaturan properti komponen Swing, serta penerapan konsep Model-View-Controller (MVC).
+
+Tujuan pengembangan ini adalah membuat tampilan aplikasi lebih menarik, terstruktur, dan mudah dikembangkan. Selain itu, aplikasi dapat membedakan karakter berdasarkan role dan memberikan tampilan khusus untuk karakter yang memiliki level tinggi.
+
+## 2. Struktur Project
+
+```text
+CharacterManager2/
+│
+├── src/
+│   └── com/unpri/charactermanager/
+│       │
+│       ├── Main.java
+│       │
+│       ├── model/
+│       │   ├── Character.java
+│       │   ├── CharacterManager.java
+│       │   └── CharacterType.java
+│       │
+│       └── view/
+│           ├── AppTheme.java
+│           └── MainWindow.java
+│
+├── screenshots/
+│   ├── sebelum-tp10.png
+│   └── sesudah-tp10.png
+│
+└── README.md
+```
+
+## 3. Implementasi AppTheme
+
+Pada TP10 ditambahkan class `AppTheme.java` di dalam package `view`.
+
+Class ini digunakan untuk mengatur tampilan aplikasi secara terpusat agar pengaturan warna, font, dan border tidak ditulis berulang kali di MainWindow.
+
+Pengaturan yang terdapat pada AppTheme:
+
+- Warna latar belakang aplikasi.
+- Warna panel dan teks.
+- Warna kartu berdasarkan role karakter.
+- Warna emas untuk karakter dengan level tinggi.
+- Font judul, subtitle, dan isi.
+- Border kartu karakter.
+- Method `colorFor()` untuk menentukan warna berdasarkan role.
+
+Pemetaan warna karakter:
+
+| Role | Warna |
+|---|---|
+| WARRIOR | Merah |
+| MAGE | Biru |
+| ARCHER | Hijau |
+| ASSASSIN | Ungu |
+
+Warna disimpan di AppTheme dan bukan di Character karena warna merupakan bagian dari tampilan (View), sedangkan Character bertugas menyimpan data karakter (Model). Dengan pemisahan ini, perubahan tema dapat dilakukan tanpa mengubah class Character.
+
+## 4. Mini-Challenge: Highlight Level Tinggi
+
+Pada TP10 ditambahkan fitur untuk membedakan karakter berdasarkan level.
+
+Ketentuan:
+- Karakter dengan level di bawah 5 menggunakan warna tulisan normal.
+- Karakter dengan level minimal 5 menggunakan warna emas.
+- Nama karakter dengan level minimal 5 ditampilkan dengan tulisan tebal.
+
+Batas level disimpan dalam konstanta:
+
+```java
+public static final int HIGH_LEVEL_THRESHOLD = 5;
+```
+
+Fitur ini mempermudah pengguna mengetahui karakter yang memiliki level tinggi.
+
+## 5. Data Karakter
+
+Aplikasi menampilkan minimal enam karakter dengan variasi role dan level.
+
+| No. | Nama | Role | Level |
+|---|---|---|---|
+| 1 | Arthur | WARRIOR | 1 |
+| 2 | Merlin | MAGE | 3 |
+| 3 | Robin | ARCHER | 2 |
+| 4 | Luna | MAGE | 4 |
+| 5 | Ragnar | WARRIOR | 5 |
+| 6 | Shadow | ASSASSIN | 6 |
+
+Data karakter ditampilkan secara dinamis menggunakan perulangan sehingga tidak perlu membuat JLabel secara manual untuk setiap karakter.
+
+## 6. Dua Properti Tambahan
+
+### A. Tooltip
+
+Menggunakan method `setToolTipText()` untuk menampilkan informasi HP dan Attack ketika pengguna mengarahkan kursor ke kartu karakter.
+
+Alasan: agar pengguna dapat mengetahui informasi tambahan karakter tanpa memenuhi tampilan utama aplikasi.
+
+### B. Hand Cursor
+
+Menggunakan `setCursor()` dengan `HAND_CURSOR` untuk mengubah bentuk kursor menjadi tangan ketika diarahkan ke kartu karakter.
+
+Alasan: memberikan petunjuk visual kepada pengguna bahwa kartu merupakan elemen yang dapat diarahkan atau berinteraksi dengan kursor.
+
+## 7. Screenshot Aplikasi
+
+### A. Tampilan Sebelum (v0.3)
+
+Screenshot aplikasi Character Manager sebelum menggunakan tema TP10.
+
+![alt text](../Screenshot/tp10_sebelum.png)
+
+### B. Tampilan Sesudah (v0.4)
+
+Screenshot aplikasi setelah menggunakan AppTheme, warna kartu berdasarkan role, dan highlight level tinggi.
+
+![alt text](../Screenshot/tp10_sesudah.png)
+
+
+## 8. Penerapan Arsitektur MVC
+
+Pada project Character Manager, konsep MVC diterapkan dengan membagi program menjadi tiga bagian:
+
+**1. Model**
+
+Model bertugas menyimpan data dan aturan karakter, seperti nama, role, level, HP, dan Attack.
+
+**2. View**
+
+View bertugas menampilkan antarmuka aplikasi menggunakan Java Swing. Class AppTheme dan MainWindow berada di bagian ini.
+
+**3. Controller**
+
+Controller bertugas mengatur hubungan antara Model dan View, termasuk proses pengolahan data dan interaksi pengguna.
+
+Dengan pembagian tersebut, program menjadi lebih terstruktur dan setiap bagian mempunyai tanggung jawab masing-masing.
+
+## 9. Perbedaan setSize, setPreferredSize, dan pack()
+
+- `setSize()` digunakan untuk menentukan ukuran jendela secara langsung.
+- `setPreferredSize()` digunakan untuk menentukan ukuran yang disarankan bagi komponen.
+- `pack()` digunakan untuk menyesuaikan ukuran jendela berdasarkan kebutuhan komponen di dalamnya.
+
+Pada TP10 digunakan `pack()` agar ukuran jendela dapat menyesuaikan tampilan aplikasi.
+
+## 10. Google Docs – Analisis Properti dan MVC
+
+Dokumen analisis berisi pembahasan mengenai:
+
+1. Getter dan setter pada komponen Swing.
+2. Penyebab JLabel tidak menampilkan warna latar belakang.
+3. Perbedaan setSize, setPreferredSize, dan pack().
+4. Alasan pemetaan warna role berada di AppTheme.
+5. Logical font dan penggunaan deriveFont().
+
+**Link Google Docs:**
+
+[https://1drv.ms/w/c/4c356e610a8583e8/IQBZ5onVfx6iSo3plEJdihQGAbvrrIp5eL-xgjUzW7eV0lA?e=IFofQQ]
+
+## 11. Kesimpulan
+
+Melalui Character Manager Sprint #4, saya mempelajari cara mengatur tampilan aplikasi menggunakan AppTheme, menerapkan properti komponen Swing, serta memahami pemisahan tanggung jawab dalam arsitektur MVC.
+
+Saya juga berhasil mempelajari penggunaan warna berdasarkan role karakter, highlight untuk level tinggi, tooltip, hand cursor, dan pack(). Dengan penerapan tersebut, aplikasi Character Manager menjadi lebih menarik, terstruktur, dan mudah dikembangkan.
