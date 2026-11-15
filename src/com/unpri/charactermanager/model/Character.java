@@ -1,9 +1,10 @@
 
 package com.unpri.charactermanager.model;
 
+import java.util.Objects;
+
 public class Character {
 
-    // Atribut private
     private String name;
     private CharacterType type;
     private int level;
@@ -11,36 +12,20 @@ public class Character {
     private int attack;
     private int mana;
 
-    // Constructor pertama
+    private static int totalCharacterCreated = 0;
+
     public Character(String name, CharacterType type) {
-        this.name = name;
-        this.type = type;
-
-        this.level = 1;
-        this.hitPoints = 100;
-        this.attack = 10;
-        this.mana = 50;
-
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException(
-                "Nama karakter tidak boleh kosong."
-            );
-        }
-
-        if (type == null) {
-            throw new IllegalArgumentException(
-                "Tipe karakter tidak boleh null."
-            );
-        }
+        this(name, type, 1);
     }
 
-    // Constructor kedua
     public Character(String name, CharacterType type, int level) {
-        this(name, type);
+        setName(name);
+        setType(type);
         setLevel(level);
+        this.mana = 50;
+        totalCharacterCreated++;
     }
 
-    // Getter dan setter nama
     public String getName() {
         return name;
     }
@@ -51,11 +36,9 @@ public class Character {
                 "Nama karakter tidak boleh kosong."
             );
         }
-
         this.name = name;
     }
 
-    // Getter dan setter tipe
     public CharacterType getType() {
         return type;
     }
@@ -66,11 +49,9 @@ public class Character {
                 "Tipe karakter tidak boleh null."
             );
         }
-
         this.type = type;
     }
 
-    // Getter dan setter level
     public int getLevel() {
         return level;
     }
@@ -81,66 +62,60 @@ public class Character {
                 "Level minimal adalah 1."
             );
         }
-
         this.level = level;
-
-        // HP dan attack dihitung ulang berdasarkan level
-        this.hitPoints = 100 + (level - 1) * 20;
-        this.attack = 10 + (level - 1) * 5;
+        this.hitPoints = 100 + (level * 20);
+        this.attack = 10 + (level * 5);
     }
 
-    // Getter dan setter hitPoints
     public int getHitPoints() {
         return hitPoints;
     }
 
-    public void setHitPoints(int hitPoints) {
-        if (hitPoints < 0) {
-            throw new IllegalArgumentException(
-                "Hit Points tidak boleh negatif."
-            );
-        }
-
-        this.hitPoints = hitPoints;
-    }
-
-    // Getter dan setter attack
     public int getAttack() {
         return attack;
     }
 
-    public void setAttack(int attack) {
-        if (attack < 0) {
-            throw new IllegalArgumentException(
-                "Attack tidak boleh negatif."
-            );
-        }
-
-        this.attack = attack;
-    }
-
-    // BAGIAN B: Getter mana
     public int getMana() {
         return mana;
     }
 
-    // BAGIAN B: Setter mana dengan validasi
     public void setMana(int mana) {
         if (mana < 0) {
             throw new IllegalArgumentException(
                 "Mana tidak boleh negatif."
             );
         }
-
         this.mana = mana;
     }
 
-    // BAGIAN B: Mengecek apakah karakter masih hidup
     public boolean isAlive() {
         return hitPoints > 0;
     }
 
-    // Menampilkan informasi karakter
+    public static int getTotalCharacterCreated() {
+        return totalCharacterCreated;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        if (!(obj instanceof Character)) {
+            return false;
+        }
+
+        Character other = (Character) obj;
+
+        return name.equalsIgnoreCase(other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name.toLowerCase());
+    }
+
     @Override
     public String toString() {
         return "Character{" +
