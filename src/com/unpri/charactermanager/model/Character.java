@@ -12,59 +12,71 @@ public class Character {
     private int attack;
     private int mana;
 
-    private static int totalCharacterCreated = 0;
-
     public Character(String name, CharacterType type) {
         this(name, type, 1);
     }
 
     public Character(String name, CharacterType type, int level) {
-        setName(name);
-        setType(type);
-        setLevel(level);
-        this.mana = 50;
-        totalCharacterCreated++;
+        validateName(name);
+        validateType(type);
+        validateLevel(level);
+        validateMageLevel(type, level);
+
+        this.name = name.trim();
+        this.type = type;
+        this.level = level;
+
+        updateStats();
+    }
+
+    private void validateName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                "Nama karakter tidak boleh kosong."
+            );
+        }
+    }
+
+    private void validateType(CharacterType type) {
+        if (type == null) {
+            throw new IllegalArgumentException(
+                "Tipe karakter tidak boleh null."
+            );
+        }
+    }
+
+    private void validateLevel(int level) {
+        if (level < 1 || level > 99) {
+            throw new IllegalArgumentException(
+                "Level harus berada antara 1 sampai 99."
+            );
+        }
+    }
+
+    private void validateMageLevel(CharacterType type, int level) {
+        if (type == CharacterType.MAGE && level > 60) {
+            throw new IllegalArgumentException(
+                "Karakter MAGE tidak boleh memiliki level lebih dari 60."
+            );
+        }
+    }
+
+    private void updateStats() {
+        hitPoints = 100 + (level * 10);
+        attack = 10 + (level * 5);
+        mana = 50 + (level * 10);
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException(
-                "Nama karakter tidak boleh kosong."
-            );
-        }
-        this.name = name;
-    }
-
     public CharacterType getType() {
         return type;
     }
 
-    public void setType(CharacterType type) {
-        if (type == null) {
-            throw new IllegalArgumentException(
-                "Tipe karakter tidak boleh null."
-            );
-        }
-        this.type = type;
-    }
-
     public int getLevel() {
         return level;
-    }
-
-    public void setLevel(int level) {
-        if (level < 1) {
-            throw new IllegalArgumentException(
-                "Level minimal adalah 1."
-            );
-        }
-        this.level = level;
-        this.hitPoints = 100 + (level * 20);
-        this.attack = 10 + (level * 5);
     }
 
     public int getHitPoints() {
@@ -77,6 +89,24 @@ public class Character {
 
     public int getMana() {
         return mana;
+    }
+
+    public void setName(String name) {
+        validateName(name);
+        this.name = name.trim();
+    }
+
+    public void setType(CharacterType type) {
+        validateType(type);
+        validateMageLevel(type, level);
+        this.type = type;
+    }
+
+    public void setLevel(int level) {
+        validateLevel(level);
+        validateMageLevel(type, level);
+        this.level = level;
+        updateStats();
     }
 
     public void setMana(int mana) {
@@ -92,22 +122,12 @@ public class Character {
         return hitPoints > 0;
     }
 
-    public static int getTotalCharacterCreated() {
-        return totalCharacterCreated;
-    }
-
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-
-        if (!(obj instanceof Character)) {
-            return false;
-        }
+        if (this == obj) return true;
+        if (!(obj instanceof Character)) return false;
 
         Character other = (Character) obj;
-
         return name.equalsIgnoreCase(other.name);
     }
 
@@ -118,13 +138,9 @@ public class Character {
 
     @Override
     public String toString() {
-        return "Character{" +
-                "name='" + name + '\'' +
-                ", type=" + type +
-                ", level=" + level +
-                ", hitPoints=" + hitPoints +
-                ", attack=" + attack +
-                ", mana=" + mana +
-                '}';
+        return name + " (" + type + ") - Level " + level
+                + " | HP: " + hitPoints
+                + " | Attack: " + attack
+                + " | Mana: " + mana;
     }
 }

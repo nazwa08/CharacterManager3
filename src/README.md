@@ -566,3 +566,149 @@ MainWindow.
 - NIM: 253303621233
 - Kelas: Sistem Informasi Pagi A
 - Mata Kuliah: Java Visual SIH-6406
+
+---------------------------------------------------------------------------------------------------
+
+# Character Manager — TP14 (Java Visual SIH-6406)
+
+## Character Manager Sprint #6
+### Form Input, Validasi & Analisis MVC
+
+**Mata Kuliah:** Java Visual  
+**Universitas:** Universitas Prima Indonesia (UNPRI)  
+**Fakultas:** Sains dan Teknologi  
+**Program Studi:** Sistem Informasi  
+**Dosen:** Dr. Evta Indra
+
+**Identitas Mahasiswa:**
+- Nama: [Nazwa Haqqi Nasution]
+- NIM: [253303621233]
+- Kelas: [Sistem Informasi Pagi A]
+
+---
+
+## A. Deskripsi Proyek
+
+Character Manager Sprint #6 merupakan pengembangan aplikasi Character Manager menggunakan Java Swing dengan konsep Model-View-Controller (MVC).
+
+Pada sprint ini, aplikasi dikembangkan dengan menambahkan form input karakter, validasi data, serta aturan tambahan pada Model. Tujuannya adalah memastikan data karakter yang dimasukkan pengguna sesuai dengan aturan aplikasi sebelum disimpan dan ditampilkan.
+
+## B. Fitur yang Diimplementasikan
+
+1. Input nama karakter menggunakan JTextField.
+2. Pemilihan role menggunakan JComboBox<CharacterType>.
+3. Pengaturan level menggunakan JSpinner dengan rentang 1–99.
+4. Validasi nama kosong, panjang nama, format nama, dan nama duplikat.
+5. Validasi level karakter pada Model.
+6. Aturan khusus MAGE dengan level maksimal 60.
+7. Validasi tambahan nama minimal 3 karakter.
+8. Pembatasan jumlah karakter maksimal 20.
+9. Pesan validasi ditampilkan langsung pada form.
+10. Daftar karakter diperbarui menggunakan refreshList(), revalidate(), dan repaint().
+
+## C. Struktur Package
+
+```text
+CharacterManager3/
+├── src/
+│   └── com/unpri/charactermanager/
+│       ├── Main.java
+│       ├── model/
+│       │   ├── Character.java
+│       │   ├── CharacterManager.java
+│       │   └── CharacterType.java
+│       └── view/
+│           ├── AppTheme.java
+│           ├── CharacterFormPanel.java
+│           └── MainWindow.java
+└── README.md
+```
+
+## D. Screenshot Pengujian
+
+### 1. Validasi Nama Kosong
+
+**Tujuan:** Memastikan aplikasi menolak input nama yang kosong.
+
+Masukkan nama kosong, kemudian tekan tombol Tambah Karakter.
+
+**Screenshot:**
+
+[![alt text](../Screenshot/ErrorNamaKosong_tp14.png)]
+
+### 2. Validasi Nama Duplikat
+
+**Tujuan:** Memastikan aplikasi menolak nama karakter yang sudah terdaftar.
+
+Masukkan nama karakter yang sama dengan karakter yang sudah ada.
+
+**Screenshot:**
+
+[![alt text](../Screenshot/ErrorNamaDuplikat_tp14.png)]
+
+### 3. Penambahan Karakter Berhasil
+
+**Tujuan:** Memastikan karakter valid berhasil ditambahkan dan langsung muncul pada daftar.
+
+Masukkan nama, pilih role, tentukan level, kemudian tekan Tambah Karakter.
+
+**Screenshot:**
+
+[![alt text](../Screenshot/SuksesDenganKartuBaru_tp14.png)]
+
+## E. Tabel Pengujian
+
+| No. | Input | Hasil Diharapkan | Hasil Nyata | Lapisan yang Menangkap |
+|---|---|---|---|---|
+| 1 | Nama kosong | Ditolak dengan pesan nama wajib diisi | Isi setelah pengujian | View |
+| 2 | Nama lebih dari 30 karakter | Ditolak | Isi setelah pengujian | View |
+| 3 | Nama mengandung angka | Ditolak | Isi setelah pengujian | View |
+| 4 | Nama sudah digunakan | Ditolak sebagai duplikat | Isi setelah pengujian | View |
+| 5 | Nama kurang dari 3 karakter | Ditolak | Isi setelah pengujian | View |
+| 6 | MAGE dengan level 61 | Ditolak dengan pesan batas level MAGE | Isi setelah pengujian | Model |
+| 7 | Level 0 | Ditolak karena level minimal 1 | Isi setelah pengujian | Model |
+| 8 | Jumlah karakter sudah 20 | Penambahan karakter ditolak | Isi setelah pengujian | Model |
+| 9 | Nama valid, role WARRIOR, level 10 | Karakter berhasil ditambahkan | Isi setelah pengujian | View dan Model |
+| 10 | Nama valid, role MAGE, level 60 | Karakter berhasil ditambahkan | Isi setelah pengujian | View dan Model |
+
+**Catatan pengujian:** Kolom hasil nyata diisi setelah setiap skenario benar-benar dijalankan. Jika hasil nyata berbeda dari hasil yang diharapkan, periksa validasi pada View atau Model, perbaiki kode, kemudian ulangi pengujian.
+
+## F. Pembagian Tanggung Jawab MVC
+
+**Model**
+
+Model bertanggung jawab menjaga aturan dan konsistensi data karakter. Validasi nama kosong, role null, level 1–99, batas level MAGE maksimal 60, serta jumlah karakter maksimal 20 ditempatkan pada Model agar tetap berlaku meskipun data berasal dari luar form.
+
+**View**
+
+View bertanggung jawab menampilkan komponen input, menerima masukan pengguna, melakukan validasi format dan kelengkapan nama, serta menampilkan pesan kesalahan. View juga memperbarui daftar karakter setelah data berhasil ditambahkan.
+
+**Controller / Alur Aplikasi**
+
+Pada sprint ini, alur interaksi masih menggunakan ActionListener sederhana. Pemanggilan manager.addCharacter() masih dilakukan langsung dari View sebagai kompromi sementara.
+
+## G. Kompromi Sementara
+
+Pada Sprint #6, ActionListener masih digunakan secara sederhana untuk menangani tindakan tombol Tambah Karakter. Selain itu, CharacterFormPanel masih memanggil manager.addCharacter() secara langsung setelah input dinyatakan valid. Cara ini memudahkan implementasi dan pengujian pada tahap awal, tetapi membuat View masih memiliki tanggung jawab terhadap alur aplikasi. Pada pengembangan berikutnya, pemisahan tanggung jawab melalui Controller diharapkan membuat kode lebih terstruktur dan mudah dipelihara.
+
+## H. Analisis Google Docs
+
+Dokumen analisis Bagian D membahas:
+- Komponen input dan ruang nilai yang sah.
+- Perbedaan validasi format dan makna.
+- Validasi dua lapis pada View dan Model.
+- Kualitas pesan kesalahan.
+- Casting pada getSelectedItem() dan getValue().
+- Kompromi sementara dan pengembangan MVC.
+
+**Link Google Docs:**
+
+[https://1drv.ms/w/c/4c356e610a8583e8/IQBvea4wi7JXTK9vwSwNDKxcAbAVUdGko5PHsoQ4bGgUQxM?e=Gu6p7o]
+
+## I. Kesimpulan
+
+Melalui Character Manager Sprint #6, aplikasi telah dikembangkan dengan form input yang lebih terstruktur dan validasi berlapis. Validasi pada View membantu pengguna memperbaiki input sebelum data dikirim, sedangkan Model menjaga agar aturan bisnis tetap berlaku untuk semua sumber data. Pengembangan ini memperkuat pemahaman mengenai Java Swing, exception handling, validasi, dan pemisahan tanggung jawab dalam arsitektur MVC.
+
+---
+
+**Character Manager Sprint #6 — TP14**  

@@ -2,69 +2,128 @@
 package com.unpri.charactermanager.view;
 
 import com.unpri.charactermanager.model.CharacterType;
-import java.awt.Color;
-import java.awt.Font;
-import javax.swing.BorderFactory;
+
+import javax.swing.*;
 import javax.swing.border.Border;
+import java.awt.*;
 
 public class AppTheme {
 
-    // Warna aplikasi
-    public static final Color BACKGROUND = new Color(245, 247, 250);
-    public static final Color PANEL = Color.WHITE;
-    public static final Color TEXT = new Color(35, 42, 52);
-    public static final Color MUTED = new Color(110, 120, 135);
-    public static final Color ACCENT = new Color(45, 105, 180);
-    public static final Color BORDER_COLOR = new Color(220, 225, 232);
+    // Background dan warna utama
+    public static final Color BACKGROUND =
+            new Color(13, 17, 28);
 
-    // Font aplikasi
+    public static final Color PANEL_BACKGROUND =
+            new Color(24, 31, 48);
+
+    public static final Color PRIMARY =
+            new Color(245, 190, 65);
+
+    public static final Color DARK =
+            new Color(255, 213, 105);
+
+    public static final Color WHITE =
+            new Color(255, 255, 255);
+
+    public static final Color TEXT =
+            new Color(225, 231, 240);
+
+    public static final Color SECONDARY =
+            new Color(160, 172, 190);
+
+    public static final Color SUCCESS =
+            new Color(55, 210, 130);
+
+    public static final Color ERROR =
+            new Color(255, 85, 95);
+
+    // Warna form
+    public static final Color FORM_BACKGROUND =
+            new Color(24, 31, 48);
+
+    public static final Color INPUT_BACKGROUND =
+            new Color(38, 47, 66);
+
+    // Warna kartu berdasarkan role
+    public static final Color WARRIOR =
+            new Color(105, 39, 52);
+
+    public static final Color MAGE =
+            new Color(43, 66, 120);
+
+    public static final Color ARCHER =
+            new Color(30, 100, 83);
+
+    public static final Color ASSASSIN =
+            new Color(91, 53, 120);
+
+    // Font
     public static final Font TITLE_FONT =
-            new Font("SansSerif", Font.BOLD, 23);
+            new Font("Segoe UI", Font.BOLD, 27);
 
-    public static final Font SUBTITLE_FONT =
-            new Font("SansSerif", Font.PLAIN, 13);
+    public static final Font NORMAL_FONT =
+            new Font("Segoe UI", Font.PLAIN, 14);
 
-    public static final Font CARD_TITLE_FONT =
-            new Font("SansSerif", Font.BOLD, 16);
+    public static final Font BUTTON_FONT =
+            new Font("Segoe UI", Font.BOLD, 14);
 
-    public static final Font BODY_FONT =
-            new Font("SansSerif", Font.PLAIN, 13);
+    public static final Font CARD_FONT =
+            new Font("Segoe UI", Font.BOLD, 16);
 
-    public static final Font SMALL_FONT =
-            new Font("SansSerif", Font.PLAIN, 11);
-
-    // Border aplikasi
+    // Border
     public static final Border PANEL_BORDER =
-            BorderFactory.createCompoundBorder(
-                    BorderFactory.createLineBorder(BORDER_COLOR),
-                    BorderFactory.createEmptyBorder(12, 12, 12, 12)
+            BorderFactory.createEmptyBorder(18, 18, 18, 18);
+
+    public static final Border FORM_BORDER =
+            BorderFactory.createTitledBorder(
+                    BorderFactory.createLineBorder(PRIMARY, 2),
+                    "TAMBAH KARAKTER",
+                    0,
+                    0,
+                    BUTTON_FONT,
+                    PRIMARY
             );
 
-    private AppTheme() {
-    }
+    public static final Border INPUT_BORDER =
+            BorderFactory.createLineBorder(
+                    new Color(85, 99, 122), 1
+            );
 
-    // Warna berdasarkan tipe karakter
+    public static final Border ERROR_BORDER =
+            BorderFactory.createLineBorder(ERROR, 2);
+
+    public static final Border CARD_BORDER =
+            BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(
+                            new Color(245, 190, 65), 1
+                    ),
+                    BorderFactory.createEmptyBorder(
+                            13, 15, 13, 15
+                    )
+            );
+
+    // Mengembalikan warna sesuai tipe karakter
     public static Color colorFor(CharacterType type) {
 
         if (type == null) {
-            return MUTED;
+            return PANEL_BACKGROUND;
         }
 
         switch (type) {
             case WARRIOR:
-                return new Color(220, 85, 85);
+                return WARRIOR;
 
             case MAGE:
-                return new Color(125, 90, 205);
+                return MAGE;
 
             case ARCHER:
-                return new Color(55, 155, 100);
+                return ARCHER;
 
             case ASSASSIN:
-                return new Color(65, 75, 95);
+                return ASSASSIN;
 
             default:
-                return MUTED;
+                return PANEL_BACKGROUND;
         }
     }
 }
